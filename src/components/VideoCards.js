@@ -1,11 +1,17 @@
 import React from 'react';
 
-const VideoCards = ({ title, description, thumbnailUrl }) => {
+const VideoCards = ({ info}) => {
+    console.log(info);
+    const {snippet , statistics} = info;
+    const { channelTitle, title, thumbnails} = snippet;
   return (
-    <div className="bg-gray-100 p-4">
-      <img src={thumbnailUrl} alt={title} />
-      <h3 className="text-xl font-bold">{title}</h3>
-      <p className="text-gray-600">{description}</p>
+    <div>
+    <img alt='thumbnail' src={thumbnails.medium.url}/>
+    <ul>
+        <li>{title}</li>
+        <li>{channelTitle}</li>
+        <li>{statistics.viewCount}</li>
+    </ul>
     </div>
   );
 };
