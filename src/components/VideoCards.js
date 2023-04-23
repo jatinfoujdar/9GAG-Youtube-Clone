@@ -1,19 +1,28 @@
-import React from 'react';
+import React from "react";
 
-const VideoCards = ({ info}) => {
-    console.log(info);
-    const {snippet , statistics} = info;
-    const { channelTitle, title, thumbnails} = snippet;
+const VideoCards = ({ info = {} }) => {
+  if (!info || !info.snippet) {
+    return <div>No video information found</div>;
+  }
+
+  const { snippet, statistics } = info;
+  const { channelTitle, title, thumbnails } = snippet;
+
+
   return (
-    <div>
-    <img alt='thumbnail' src={thumbnails.medium.url}/>
-    <ul>
-        <li>{title}</li>
+    <div className="p-2 m-2 w-72 shadow-lg">
+      <img className="rounded-lg" alt="thumbnail" src={thumbnails.medium.url} />
+      <ul>
+        <li className="font-bold py-2">{title}</li>
         <li>{channelTitle}</li>
-        <li>{statistics.viewCount}</li>
-    </ul>
+        <li>{statistics.viewCount} views</li>
+      </ul>
     </div>
   );
 };
 
 export default VideoCards;
+
+
+
+
