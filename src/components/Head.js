@@ -11,7 +11,7 @@ const Head = () => {
   };
 
   return (
-    <div className='grid grid-flow-col p-5 m-2 shadow-lg'>
+    <div className='grid grid-flow-col p-5 m-2 shadow-lg '>
       <div className='flex col-span-1 '>
     <img onClick={()=>toggleMenuHandler()} className='h-10 cursor-pointer' alt="menu" src="https://www.shutterstock.com/image-vector/hamburger-menu-bar-line-art-260nw-273559643.jpg"/>
     <a href="/">
