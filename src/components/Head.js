@@ -11,11 +11,11 @@ const Head = () => {
   };
 
   return (
-    <div className='grid grid-flow-col p-5 m-2 shadow-lg '>
+    <div className='grid grid-flow-col p-5 m-2 shadow-lg rounded-lg '>
       <div className='flex col-span-1 '>
     <img onClick={()=>toggleMenuHandler()} className='h-10 cursor-pointer' alt="menu" src="https://www.shutterstock.com/image-vector/hamburger-menu-bar-line-art-260nw-273559643.jpg"/>
     <a href="/">
-  <img className="h-10 mx-2" alt="logo" src="https://seeklogo.com/images/1/9gag-logo-7907FF8A41-seeklogo.com.png" />
+  <img className="h-10 mx-2 ml-5" alt="logo" src="https://seeklogo.com/images/1/9gag-logo-7907FF8A41-seeklogo.com.png" />
 </a>
 
     </div>
