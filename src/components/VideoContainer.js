@@ -16,7 +16,7 @@ const  [videos, setVideos] = useState([]);
     setVideos(json.items) 
   }
   return (
-    <div className='flex flex-wrap'>
+    <div className='flex flex-wrap pl-10'>
       {videos.map((video) =>(
       <Link to={"/watch?v=" + video.id}> <VideoCards key={video.id} info={video}/>
 

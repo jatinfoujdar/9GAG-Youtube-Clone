@@ -9,7 +9,6 @@ const [searchParams, setSearchParams] = useSearchParams();
 
 const dispatch = useDispatch();
     useEffect(()=>{
-
         dispatch(closeMenu())
     },[]);
   return (
