@@ -1,14 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { toggleMenu } from '../utils/appSlice'
 import { useDispatch } from 'react-redux'
+import {SuggestionAPI} from "../utils/config"
 
 const Head = () => {
+  const[searchQuiries, setSearchQuiries] = useState("");
+  // const [suggestions, setSuggestions] = useState([]);
+  
+  useEffect(()=>{
+   //api call after every key press
+   //diff btw 2 api call is 200ms decline the api call
+  setTimeout(()=>getSearchSuggestions(),200);
+},[searchQuiries])
+
+
+  const getSearchSuggestions = async()=>{
+    const data = await fetch(SuggestionAPI + searchQuiries);
+    const json = await data.json()
+    console.log(json[1]);
+  }
 
   const dispatch = useDispatch()
   
   const toggleMenuHandler=()=>{
     dispatch(toggleMenu());
   };
+
+  
 
   return (
     <div className='grid grid-flow-col p-5 m-2 shadow-lg rounded-lg '>
@@ -20,8 +38,21 @@ const Head = () => {
 
     </div>
     <div className='col-span-10 px-10 '>
-      <input className='w-1/2 border border-gray-800 p-2 rounded-l-full' type='text'/>
+      <div>
+      <input className='w-1/2 border border-gray-800 p-2 rounded-l-full' type='text' value={searchQuiries} onChange={(e)=> setSearchQuiries(e.target.value)}/>
       <button className='bg-red-600 text-white font-bold py-2 px-4 rounded-r-full'>Search</button>
+      </div>
+      <div className='fixed bg-white  py-2 px-5 w-[43rem] shadow-lg rounded-lg border-gray-100'>
+        <ul>
+          <li className='shadow-sm py-2  hover:bg-gray-100'>Iphone Pro</li>
+          <li className='shadow-sm py-2  hover:bg-gray-100'>Iphone Pro</li>
+          <li className='shadow-sm py-2  hover:bg-gray-100'>Iphone Pro</li>
+          <li className='shadow-sm py-2  hover:bg-gray-100'>Iphone Pro</li>
+          <li className='shadow-sm py-2  hover:bg-gray-100'>Iphone Pro</li>
+          <li className='shadow-sm py-2  hover:bg-gray-100'>Iphone Pro</li>
+          <li className='shadow-sm py-2  hover:bg-gray-100'>Iphone Pro</li>
+        </ul>
+      </div>
       </div>
       <div className='col-span-1'>
     <img className='h-10' alt='user-icon' src="https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png"/>
