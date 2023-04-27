@@ -8,13 +8,17 @@ const Head = () => {
   // const [suggestions, setSuggestions] = useState([]);
   
   useEffect(()=>{
-   //api call after every key press
-   //diff btw 2 api call is 200ms decline the api call
-  setTimeout(()=>getSearchSuggestions(),200);
+   //api call after every key press diff btw 2 api call is 200ms decline the api call
+
+  const timer = setTimeout(()=>getSearchSuggestions(),200);
+  return()=>{
+    clearTimeout(timer);
+  }
 },[searchQuiries])
 
 
   const getSearchSuggestions = async()=>{
+    console.log(searchQuiries);
     const data = await fetch(SuggestionAPI + searchQuiries);
     const json = await data.json()
     console.log(json[1]);
