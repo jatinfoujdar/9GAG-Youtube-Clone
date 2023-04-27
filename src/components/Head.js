@@ -6,6 +6,7 @@ import {SuggestionAPI} from "../utils/config"
 const Head = () => {
   const[searchQuiries, setSearchQuiries] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestion, setShowSuggestion] = useState(false)
   const dispatch = useDispatch()
 
   useEffect(()=>{
@@ -42,10 +43,16 @@ const getSearchSuggestions = async () => {
     </div>
     <div className='col-span-10 px-10 '>
       <div>
-      <input className='w-1/2 border border-gray-800 p-2 rounded-l-full' type='text' value={searchQuiries} onChange={(e)=> setSearchQuiries(e.target.value)}/>
+      <input className='w-1/2 border border-gray-800 p-2 rounded-l-full' type='text' value={searchQuiries}
+       onChange={(e)=> setSearchQuiries(e.target.value)}
+       onFocus={()=> setShowSuggestion(true)}
+       onBlur={()=> setShowSuggestion(false)}/>
+       
       <button className='bg-red-600 text-white font-bold py-2 px-4 rounded-r-full'>Search</button>
       </div>
-      <div className='fixed bg-white  py-2 px-5 w-[43rem] shadow-lg rounded-lg border-gray-100'>
+      
+      {showSuggestion &&(
+        <div className='fixed bg-white  py-2 px-5 w-[43rem] shadow-lg rounded-lg border-gray-100'>
       <ul>
               {suggestions.map((s) => (
                 <li key={s} className="py-2 px-3 shadow-sm hover:bg-gray-100">
@@ -54,6 +61,7 @@ const getSearchSuggestions = async () => {
               ))}
             </ul>
       </div>
+      )}
       </div>
       <div className='col-span-1'>
     <img className='h-10' alt='user-icon' src="https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png"/>
