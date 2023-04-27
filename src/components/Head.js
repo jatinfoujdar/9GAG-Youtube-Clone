@@ -5,11 +5,11 @@ import {SuggestionAPI} from "../utils/config"
 
 const Head = () => {
   const[searchQuiries, setSearchQuiries] = useState("");
-  // const [suggestions, setSuggestions] = useState([]);
-  
+  const [suggestions, setSuggestions] = useState([]);
+  const dispatch = useDispatch()
+
   useEffect(()=>{
    //api call after every key press diff btw 2 api call is 200ms decline the api call
-
   const timer = setTimeout(()=>getSearchSuggestions(),200);
   return()=>{
     clearTimeout(timer);
@@ -17,14 +17,13 @@ const Head = () => {
 },[searchQuiries])
 
 
-  const getSearchSuggestions = async()=>{
-    console.log(searchQuiries);
-    const data = await fetch(SuggestionAPI + searchQuiries);
-    const json = await data.json()
-    console.log(json[1]);
-  }
+const getSearchSuggestions = async () => {
+  const data = await fetch(SuggestionAPI + searchQuiries);
+  const json = await data.json();
+  setSuggestions(json[1]);
+};
 
-  const dispatch = useDispatch()
+
   
   const toggleMenuHandler=()=>{
     dispatch(toggleMenu());
@@ -47,15 +46,13 @@ const Head = () => {
       <button className='bg-red-600 text-white font-bold py-2 px-4 rounded-r-full'>Search</button>
       </div>
       <div className='fixed bg-white  py-2 px-5 w-[43rem] shadow-lg rounded-lg border-gray-100'>
-        <ul>
-          <li className='shadow-sm py-2  hover:bg-gray-100'>Iphone Pro</li>
-          <li className='shadow-sm py-2  hover:bg-gray-100'>Iphone Pro</li>
-          <li className='shadow-sm py-2  hover:bg-gray-100'>Iphone Pro</li>
-          <li className='shadow-sm py-2  hover:bg-gray-100'>Iphone Pro</li>
-          <li className='shadow-sm py-2  hover:bg-gray-100'>Iphone Pro</li>
-          <li className='shadow-sm py-2  hover:bg-gray-100'>Iphone Pro</li>
-          <li className='shadow-sm py-2  hover:bg-gray-100'>Iphone Pro</li>
-        </ul>
+      <ul>
+              {suggestions.map((s) => (
+                <li key={s} className="py-2 px-3 shadow-sm hover:bg-gray-100">
+                  🔍 {s}
+                </li>
+              ))}
+            </ul>
       </div>
       </div>
       <div className='col-span-1'>
