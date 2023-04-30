@@ -1,27 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import { toggleMenu } from '../utils/appSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {SuggestionAPI} from "../utils/config"
+import store from '../utils/store'
+import { cacheResults } from '../utils/searchSlice'
 
 const Head = () => {
   const[searchQuiries, setSearchQuiries] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestion, setShowSuggestion] = useState(false)
   const dispatch = useDispatch()
+  const searchCache = useSelector((store) => store.search);
 
-  useEffect(()=>{
-   //api call after every key press diff btw 2 api call is 200ms decline the api call
-  const timer = setTimeout(()=>getSearchSuggestions(),200);
-  return()=>{
-    clearTimeout(timer);
-  }
-},[searchQuiries])
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchCache[searchQuiries]) {
+        setSuggestions(searchCache[searchQuiries]);
+      } else {
+        getSearchSuggestions();
+      }
+    }, 200);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [searchQuiries]);
 
 
 const getSearchSuggestions = async () => {
   const data = await fetch(SuggestionAPI + searchQuiries);
   const json = await data.json();
   setSuggestions(json[1]);
+
+  dispatch(cacheResults({[searchQuiries]:json[1],}))
 };
 
 
