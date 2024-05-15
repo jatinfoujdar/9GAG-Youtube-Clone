@@ -1,4 +1,4 @@
-## :pushpin: How to use this App?
+## :pushpin: How to use this App??
 
 1. Clone this **repository** to your local computer.
 2. Open **terminal** in root directory.
